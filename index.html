@@ -367,6 +367,7 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
 #matrix-table thead th.has-tooltip {
   cursor: help; /* Changes cursor to a question mark/pointer */
   text-decoration: underline dotted var(--accent); /* Visual cue for hover */
+  anchor-name: --tooltip-anchor; /* Tells the tooltip what to anchor to */
 }
 
 /* Optional: Custom Tooltip Styling (if not using native browser title) */
@@ -374,8 +375,10 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
   content: attr(data-tooltip); /* Assumes you add a data-tooltip attribute with the description text */
   position: absolute;
   top: 100%;
-  left: 50%;
+  position-anchor: --tooltip-anchor;
+  left: anchor(center);
   transform: translateX(-50%);
+  position-try-options: flip-inline, contain; /* Prevents edge overflowing */
   background: var(--dark);
   color: white;
   
