@@ -376,8 +376,7 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
   position: absolute;
   top: 100%;
   position-anchor: --tooltip-anchor;
-  left: anchor(center);
-  transform: translateX(-50%);
+  justify-self: anchor-center; /* Natively centers AND respects screen edges */
   position-try-fallbacks: flip-inline, contain; /* Prevents edge overflowing */
   background: var(--dark);
   color: white;
