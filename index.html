@@ -6,6 +6,7 @@
 <title>CTE Text Complexity &mdash; Collier County Workforce Education</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 <script src="text/Program_Descriptions.js"></script>
 <script src="text/Label_Descriptions.js"></script>
 <style>
@@ -345,9 +346,22 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
 }
 }
 @media print{
-  .site-header,.site-nav,.template-actions{display:none!important}
-  .strategy-template-body{display:block!important}.page{display:block!important}
-  body{background:white}.strategy-template{break-inside:avoid;margin-bottom:30px}
+  /* Hide the site chrome and every page except the instructor templates */
+  .site-header, .site-footer,
+  #page-home, #page-programs, #page-dashboard, #page-matrix{
+    display:none!important;
+  }
+  /* Hide the parts of the instructor page that aren't part of the templates themselves */
+  .instructor-hero, .template-controls, .template-actions, #template-placeholder{
+    display:none!important;
+  }
+  /* Force the templates page and the templates inside it to show, ignoring screen toggle state */
+  #page-instructor{display:block!important;margin:0;padding:0}
+  .template-builder, .template-package{margin:0;padding:0}
+  .strategy-template-body{display:block!important}
+  .strategy-template-header .strategy-toggle{display:none!important}
+  body{background:white;margin:0;padding:0}
+  .strategy-template{break-inside:avoid;margin-bottom:30px;border:1px solid #ccc;box-shadow:none}
 }
 /* Freeze Text Complexity Matrix Table Header */
 .matrix-table thead th {
@@ -761,6 +775,7 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
         <input type="text" id="instructor-name-input" placeholder="Your name" oninput="syncInstructorName(this.value)">
       </div>
       <button class="btn-primary" onclick="window.print()" style="background:var(--green);white-space:nowrap;align-self:end;">&#128438; Print All Templates</button>
+      <button class="btn-primary" onclick="downloadAllTemplatesPDF()" style="background:var(--cyan);white-space:nowrap;align-self:end;">&#128190; Download All as PDF</button>
     </div>
     <div id="template-placeholder" style="text-align:center;padding:80px 20px;color:var(--muted);">
       <div style="font-size:56px;margin-bottom:16px;">&#9997;&#65039;</div>
@@ -1512,6 +1527,7 @@ function buildTemplates() {
     </div>
     <div class="template-actions">
       <button class="btn-primary" onclick="window.print()" style="background:var(--green);font-size:13px;padding:10px 18px;">&#128438; Print All Templates</button>
+      <button class="btn-secondary" onclick="downloadTemplatePDF(${idx})" style="font-size:13px;padding:10px 18px;">&#128190; Download Editable PDF</button>
       <button class="btn-secondary" onclick="clearStrat(${idx})" style="font-size:13px;padding:10px 18px;">&#128465; Clear Editable Fields</button>
     </div>
   </div>
@@ -1531,6 +1547,178 @@ function clearStrat(idx) {
   if (!el) return;
   el.querySelectorAll('input:not(.pre-filled), textarea:not(.pre-filled)').forEach(f => f.value = '');
 }
+
+// ---------- Editable PDF export ----------
+
+function extractFieldsFromTemplate(stratEl) {
+  const fields = [];
+  stratEl.querySelectorAll('.template-form .template-field').forEach(fieldDiv => {
+    const labelEl = fieldDiv.querySelector('label');
+    const inputEl = fieldDiv.querySelector('input, textarea');
+    if (!labelEl || !inputEl) return;
+    fields.push({
+      label: labelEl.textContent.trim(),
+      value: inputEl.value || '',
+      multiline: inputEl.tagName === 'TEXTAREA'
+    });
+  });
+  return fields;
+}
+
+function getStratTitle(stratEl) {
+  const nameEl = stratEl.querySelector('.strategy-name');
+  return nameEl ? nameEl.textContent.trim() : 'Strategy Template';
+}
+
+function getSelectedProgramName() {
+  const sel = document.getElementById('instructor-program-select');
+  if (!sel || sel.selectedIndex < 0) return '';
+  const opt = sel.options[sel.selectedIndex];
+  return opt ? opt.text : '';
+}
+
+function sanitizeFilename(str) {
+  return (str || 'Literacy_Strategy_Template').replace(/[^a-z0-9]+/gi, '_').replace(/^_+|_+$/g, '');
+}
+
+function wrapText(text, font, size, maxWidth) {
+  const words = (text || '').replace(/\r\n/g, '\n').split(/(\n)/);
+  const lines = [];
+  let current = '';
+  words.forEach(chunk => {
+    if (chunk === '\n') { lines.push(current); current = ''; return; }
+    chunk.split(' ').forEach(word => {
+      const test = current ? current + ' ' + word : word;
+      if (font.widthOfTextAtSize(test, size) > maxWidth && current) {
+        lines.push(current);
+        current = word;
+      } else {
+        current = test;
+      }
+    });
+  });
+  if (current) lines.push(current);
+  return lines;
+}
+
+async function buildFilledPdf(sections) {
+  const { PDFDocument, StandardFonts, rgb } = PDFLib;
+  const pdfDoc = await PDFDocument.create();
+  const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+  const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+  const form = pdfDoc.getForm();
+
+  const pageW = 612, pageH = 792, margin = 42;
+  const dark = rgb(0.102, 0.114, 0.118);
+  const cyan = rgb(0, 0.682, 0.937);
+  const gray = rgb(0.345, 0.349, 0.357);
+  const border = rgb(0.886, 0.902, 0.918);
+
+  let page, y;
+  let fieldCounter = 0;
+
+  function drawHeader(title, subtitle) {
+    page = pdfDoc.addPage([pageW, pageH]);
+    page.drawRectangle({ x: 0, y: pageH - 64, width: pageW, height: 64, color: dark });
+    page.drawText(title, { x: margin, y: pageH - 32, size: 15, font: fontBold, color: rgb(1, 1, 1) });
+    if (subtitle) {
+      page.drawText(subtitle, { x: margin, y: pageH - 50, size: 9, font, color: rgb(0.75, 0.8, 0.85) });
+    }
+    y = pageH - 90;
+  }
+
+  function ensureSpace(h) {
+    if (y - h < 50) {
+      page = pdfDoc.addPage([pageW, pageH]);
+      y = pageH - 50;
+    }
+  }
+
+  sections.forEach((sec, si) => {
+    drawHeader(sec.title, sec.subtitle);
+    sec.fields.forEach(f => {
+      const maxWidth = pageW - margin * 2 - 16;
+      const lineCount = f.multiline ? Math.max(2, Math.min(6, wrapText(f.value, font, 9.5, maxWidth).length)) : 1;
+      const boxH = f.multiline ? Math.max(46, lineCount * 13 + 14) : 22;
+      ensureSpace(boxH + 26);
+
+      page.drawText(f.label.toUpperCase(), { x: margin, y: y, size: 8, font: fontBold, color: gray });
+      y -= 11;
+
+      const fname = `field_${si}_${fieldCounter++}`;
+      const tf = form.createTextField(fname);
+      tf.setText(f.value || '');
+      if (f.multiline) tf.enableMultiline();
+      tf.addToPage(page, {
+        x: margin,
+        y: y - boxH,
+        width: pageW - margin * 2,
+        height: boxH,
+        borderWidth: 0.75,
+        borderColor: border,
+        backgroundColor: rgb(1, 1, 1)
+      });
+      tf.updateAppearances(font);
+      y -= boxH + 14;
+    });
+  });
+
+  return await pdfDoc.save();
+}
+
+function downloadBytes(bytes, filename) {
+  const blob = new Blob([bytes], { type: 'application/pdf' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+async function downloadTemplatePDF(idx) {
+  const stratEl = document.getElementById('strat-' + idx);
+  if (!stratEl) return;
+  const fields = extractFieldsFromTemplate(stratEl);
+  const title = getStratTitle(stratEl);
+  const programName = getSelectedProgramName();
+  try {
+    const bytes = await buildFilledPdf([{
+      title,
+      subtitle: (programName ? programName + ' \u2014 ' : '') + 'Literacy Strategy Planning Template',
+      fields
+    }]);
+    downloadBytes(bytes, sanitizeFilename(title) + '.pdf');
+  } catch (err) {
+    console.error(err);
+    alert('Sorry, something went wrong generating the PDF. Please try again.');
+  }
+}
+
+async function downloadAllTemplatesPDF() {
+  const container = document.getElementById('strategy-templates-container');
+  const templates = container ? container.querySelectorAll('.strategy-template') : [];
+  if (!templates.length) {
+    alert('Select a program above first to generate its templates.');
+    return;
+  }
+  const programName = getSelectedProgramName();
+  const sections = Array.from(templates).map(stratEl => ({
+    title: getStratTitle(stratEl),
+    subtitle: (programName ? programName + ' \u2014 ' : '') + 'Literacy Strategy Planning Template',
+    fields: extractFieldsFromTemplate(stratEl)
+  }));
+  try {
+    const bytes = await buildFilledPdf(sections);
+    downloadBytes(bytes, sanitizeFilename(programName || 'Literacy_Strategy') + '_Templates.pdf');
+  } catch (err) {
+    console.error(err);
+    alert('Sorry, something went wrong generating the PDF. Please try again.');
+  }
+}
+
 </script>
 <script>
   (function () {
