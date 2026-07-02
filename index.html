@@ -774,6 +774,15 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
         <label>Instructor Name (fills all templates)</label>
         <input type="text" id="instructor-name-input" placeholder="Your name" oninput="syncInstructorName(this.value)">
       </div>
+      <!--Temporary website redirect (7-2-2026)-->
+      <div class="control-group">
+        <label>Download Instructor Templates</label>
+        <a href="https://collierschools.sharepoint.com/sites/PostsecondaryEducation" target="_blank" class="btn-primary" style="background:var(--green);white-space:nowrap;align-self:end;">&#128190; Redirect to Instructor Templates</a>
+      </div>
+
+      <!--Temporarly disable this section (7-2-2026) -->
+      <!--Disabling this section to instead redirect to the instructor templates hosted on external website, remove the temporary comment to restore site funcoinality-->
+        <!--
       <button class="btn-primary" onclick="window.print()" style="background:var(--green);white-space:nowrap;align-self:end;">&#128438; Print All Templates</button>
       <button class="btn-primary" onclick="downloadAllTemplatesPDF()" style="background:var(--cyan);white-space:nowrap;align-self:end;">&#128190; Download All as PDF</button>
     </div>
@@ -788,10 +797,10 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
         <div class="strategies-section-title" id="strategies-count-label"></div>
         <div class="strategies-section-sub" id="strategies-sub-label"></div>
       </div>
-      <div id="strategy-templates-container"></div>
+      <div id="strategy-templates-container"></div>--><!--End of the Temporary Disabled section-->
     </div>
   </div>
-</div>
+</div> 
 
 <div class="modal-overlay" id="modal-overlay" onclick="handleModalClick(event)">
   <div class="modal" id="modal">
@@ -804,7 +813,7 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
     </div>
     <div class="modal-body" id="modal-body"></div>
   </div>
-  
+
 </div>
 
 
