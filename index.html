@@ -117,6 +117,31 @@ body{font-family:'Source Serif 4',Georgia,serif;background:var(--light);color:va
 .card-body{padding:16px 20px;flex:1}
 .card-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
 .metric-label{font-family:'Montserrat',sans-serif;font-weight:600;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.metric-item{position:relative}
+.metric-label.has-tooltip{cursor:help;text-decoration:underline dotted var(--muted)}
+.metric-item:hover .metric-label.has-tooltip::after{
+  content: attr(data-tooltip);
+  position:absolute;
+  bottom:100%;
+  left:50%;
+  transform:translateX(-50%) translateY(-8px);
+  background:var(--dark);
+  color:#fff;
+  font-family:'Source Serif 4',serif;
+  font-size:13px;
+  font-weight:400;
+  text-transform:none;
+  letter-spacing:normal;
+  line-height:1.4;
+  padding:12px 14px;
+  width:220px;
+  max-width:90vw;
+  border-radius:6px;
+  box-shadow:0 4px 15px rgba(0,0,0,.3);
+  z-index:20;
+  white-space:normal;
+  pointer-events:none;
+}
 .metric-value{font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;color:var(--dark)}.metric-value.highlight{color:var(--cyan)}
 .card-challenge {display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;overflow: hidden;font-size:14px;color:var(--gray);line-height:1.4;margin-bottom:14px}
 .card-strategies{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
@@ -138,13 +163,65 @@ body{font-family:'Source Serif 4',Georgia,serif;background:var(--light);color:va
 .modal-text-sample{width:100%;border-radius:var(--radius);border:1px solid var(--border);margin-bottom:28px;max-height:280px;object-fit:cover;object-position:top}
 .modal-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px}
 .modal-metric{background:var(--light);border-radius:var(--radius);padding:16px;border-left:3px solid var(--cyan)}
-.modal-metric-label{font-family:'Montserrat',sans-serif;font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.modal-metric-label{font-family:'Montserrat',sans-serif;font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;position:relative}
+.modal-metric-label.has-tooltip{cursor:help;text-decoration:underline dotted var(--muted)}
+.modal-metric-label.has-tooltip:hover::after{
+  content:attr(data-tooltip);
+  position:absolute;
+  bottom:100%;
+  left:50%;
+  transform:translateX(-50%) translateY(-8px);
+  background:var(--dark);
+  color:#fff;
+  font-family:'Source Serif 4',serif;
+  font-size:13px;
+  font-weight:400;
+  text-transform:none;
+  letter-spacing:normal;
+  line-height:1.4;
+  padding:12px 14px;
+  width:240px;
+  max-width:90vw;
+  border-radius:6px;
+  box-shadow:0 4px 15px rgba(0,0,0,.3);
+  z-index:1000;
+  white-space:normal;
+  pointer-events:none;
+}
 .modal-metric-value{font-family:'Montserrat',sans-serif;font-weight:700;font-size:20px;color:var(--dark)}
 .modal-section{margin-bottom:24px}
 .modal-section-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:16px;text-transform:uppercase;letter-spacing:.08em;color:var(--dark);border-bottom:2px solid var(--border);padding-bottom:8px;margin-bottom:12px}
 .modal-section p{font-size:15px;color:var(--gray);line-height:1.65}
 .modal-strategies-list{display:flex;flex-wrap:wrap;gap:8px}
 .modal-strategy-pill{font-family:'Montserrat',sans-serif;font-weight:600;font-size:13px;padding:6px 14px;background:var(--cyan-dim);color:var(--cyan);border-radius:16px;border:1px solid rgba(0,174,239,.25)}
+.modal-descriptions-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.modal-description-item{background:var(--light);border-radius:var(--radius);padding:14px;border-left:3px solid var(--green)}
+.modal-description-label{font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dark);margin-bottom:6px;position:relative}
+.modal-description-label.has-tooltip{cursor:help;text-decoration:underline dotted var(--muted)}
+.modal-description-label.has-tooltip:hover::after{
+  content:attr(data-tooltip);
+  position:absolute;
+  bottom:100%;
+  left:50%;
+  transform:translateX(-50%) translateY(-8px);
+  background:var(--dark);
+  color:#fff;
+  font-family:'Source Serif 4',serif;
+  font-size:13px;
+  font-weight:400;
+  text-transform:none;
+  letter-spacing:normal;
+  line-height:1.4;
+  padding:12px 14px;
+  width:240px;
+  max-width:90vw;
+  border-radius:6px;
+  box-shadow:0 4px 15px rgba(0,0,0,.3);
+  z-index:1000;
+  white-space:normal;
+  pointer-events:none;
+}
+.modal-description-text{font-size:13px;color:var(--gray);line-height:1.5}
 .charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
 .charts-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:24px}
 .charts-grid-top{display:grid;grid-template-columns:2fr 1fr;gap:24px;margin-bottom:24px;align-items:start}
@@ -247,7 +324,7 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
 @media(max-width:768px){
   .header-top,.section,.hero,.audience-section,.audience-panels{padding-left:20px;padding-right:20px}
   .charts-grid,.charts-grid-3{grid-template-columns:1fr}.compass-cta{grid-template-columns:1fr}
-  .audience-panel-inner{grid-template-columns:1fr}.modal-grid{grid-template-columns:1fr 1fr}
+  .audience-panel-inner{grid-template-columns:1fr}.modal-grid{grid-template-columns:1fr 1fr}.modal-descriptions-grid{grid-template-columns:1fr}
   .footer-inner{grid-template-columns:1fr}.template-controls{grid-template-columns:1fr}
   .program-overview-card{grid-template-columns:1fr}.overview-metrics{grid-template-columns:1fr 1fr}
   .template-form{grid-template-columns:1fr}.site-nav{padding:0 20px}.template-builder{padding:20px}
@@ -920,9 +997,68 @@ function getImg(p) {
   if (!p.image) return '';
   return p.image;  // already "images/accounting_operations.jpg"
 }
+
+// Maps a program-card metric's on-screen label to its key in Label_Descriptions.js
+// (same source of truth the Text Complexity Matrix headers use)
+const CARD_METRIC_LABEL_MAP = {
+  'Lexile Range': 'Redabilicty_score/Lexile_range',
+  'Grade Band': 'Grade_Band',
+  'Cognitive Load': 'Cognitive_load_Rating',
+  'FAST ELA': 'Suggested_FAST_ELA_Score',
+  'SAT Reading': 'Suggested_SAT_Reading_Score',
+  'ACT Reading': 'Suggested_ACT_Reading_Score',
+  '% Barrier': 'Percent_of_course_Text_Complexity_Barier',
+  'WF Literacy Rating': 'Workforce_Literacy_Relevance'
+};
+
+// Builds the class + data-tooltip attributes for a metric label, if a description exists
+function metricLabelAttrs(displayLabel) {
+  const key = CARD_METRIC_LABEL_MAP[displayLabel];
+  const desc = key && typeof labelData !== 'undefined' && labelData[key] ? labelData[key].description : null;
+  if (!desc) return { cls: '', tip: '' };
+  return { cls: ' has-tooltip', tip: ` data-tooltip="${escapeAttr(desc)}"` };
+}
 function escapeAttr(s) {
   return (s || '').replace(/'/g, '&#39;').replace(/"/g, '&quot;');
 }
+
+// Helper function to generate modal metric HTML with tooltips
+function getModalMetricAttrs(displayLabel) {
+  const key = CARD_METRIC_LABEL_MAP[displayLabel];
+  const desc = key && typeof labelData !== 'undefined' && labelData[key] ? labelData[key].description : null;
+  if (!desc) return { cls: '', tip: '' };
+  return { cls: ' has-tooltip', tip: ` data-tooltip="${escapeAttr(desc)}"` };
+}
+
+// Helper function to generate label descriptions HTML for the modal
+function getModalLabelDescriptionsHTML() {
+  const labelDescriptions = [
+    { label: 'Lexile Range', labelKey: 'Redabilicty_score/Lexile_range' },
+    { label: 'Grade Band', labelKey: 'Grade_Band' },
+    { label: 'Cognitive Load', labelKey: 'Cognitive_load_Rating' },
+    { label: 'FAST ELA', labelKey: 'Suggested_FAST_ELA_Score' },
+    { label: 'SAT Reading', labelKey: 'Suggested_SAT_Reading_Score' },
+    { label: 'ACT Reading', labelKey: 'Suggested_ACT_Reading_Score' },
+    { label: '% Course Barrier', labelKey: 'Percent_of_course_Text_Complexity_Barier' },
+    { label: 'WF Literacy Rating', labelKey: 'Workforce_Literacy_Relevance' }
+    
+  ];
+
+  let html = '<div class="modal-descriptions-grid">';
+  labelDescriptions.forEach(({ label, labelKey }) => {
+    const desc = typeof labelData !== 'undefined' && labelData[labelKey] ? labelData[labelKey].description : null;
+    if (desc) {
+      html += `
+        <div class="modal-description-item">
+          <div class="modal-description-label has-tooltip" data-tooltip="${escapeAttr(desc)}">${label}</div>
+          <div class="modal-description-text">${desc}</div>
+        </div>`;
+    }
+  });
+  html += '</div>';
+  return html;
+}
+
 function switchSample(thumbEl, fullSrc) {
   // 1. Update the main image
   const mainImg = document.getElementById('main-sample-img');
@@ -979,19 +1115,19 @@ function makeCard(p) {
   <div class="card-body">
     <div class="card-metrics">
       <div class="metric-item">
-        <div class="metric-label">Lexile Range</div>
+        <div class="metric-label${metricLabelAttrs('Lexile Range').cls}"${metricLabelAttrs('Lexile Range').tip}>Lexile Range</div>
         <div class="metric-value highlight">${p.lexile}</div>
       </div>
       <div class="metric-item">
-        <div class="metric-label">Grade Band</div>
+        <div class="metric-label${metricLabelAttrs('Grade Band').cls}"${metricLabelAttrs('Grade Band').tip}>Grade Band</div>
         <div class="metric-value">${p.grade_band}</div>
       </div>
       <div class="metric-item">
-        <div class="metric-label">ACT Reading</div>
+        <div class="metric-label${metricLabelAttrs('ACT Reading').cls}"${metricLabelAttrs('ACT Reading').tip}>ACT Reading</div>
         <div class="metric-value">${p.act}</div>
       </div>
       <div class="metric-item">
-        <div class="metric-label">% Barrier</div>
+        <div class="metric-label${metricLabelAttrs('% Barrier').cls}"${metricLabelAttrs('% Barrier').tip}>% Barrier</div>
         <div class="metric-value">${p.barrier_pct}</div>
       </div>
     </div>
@@ -1099,6 +1235,16 @@ function openModal(name) {
 
   const stratPills = p.strategies.map(s => `<span class="modal-strategy-pill">${s}</span>`).join('');
   
+  // Build metric attributes with tooltips
+  const lexileAttrs = getModalMetricAttrs('Lexile Range');
+  const gradeBandAttrs = getModalMetricAttrs('Grade Band');
+  const cognitiveAttrs = getModalMetricAttrs('Cognitive Load');
+  const fastElaAttrs = getModalMetricAttrs('FAST ELA');
+  const satAttrs = getModalMetricAttrs('SAT Reading');
+  const actAttrs = getModalMetricAttrs('ACT Reading');
+  const barrierAttrs = getModalMetricAttrs('% Barrier');
+  const workforceAttrs = getModalMetricAttrs('WF Literacy Rating');
+  
   // 3. Inject content - note the clickable preview image wrapper and gallery layout placement
   document.getElementById('modal-body').innerHTML = `
     <div class="modal-image-container" style="margin-bottom:28px;">
@@ -1106,14 +1252,14 @@ function openModal(name) {
         ${galleryHtml}
     </div>
     <div class="modal-grid">
-      <div class="modal-metric"><div class="modal-metric-label">Lexile Range</div><div class="modal-metric-value">${p.lexile}</div></div>
-      <div class="modal-metric"><div class="modal-metric-label">Grade Band</div><div class="modal-metric-value">${p.grade_band}</div></div>
-      <div class="modal-metric"><div class="modal-metric-label">Cognitive Load</div><div class="modal-metric-value">${p.cognitive_load}</div></div>
-      <div class="modal-metric"><div class="modal-metric-label">FAST ELA</div><div class="modal-metric-value">${p.fast_ela}</div></div>
-      <div class="modal-metric"><div class="modal-metric-label">SAT Reading</div><div class="modal-metric-value">${p.sat}</div></div>
-      <div class="modal-metric"><div class="modal-metric-label">ACT Reading</div><div class="modal-metric-value">${p.act}</div></div>
-      <div class="modal-metric"><div class="modal-metric-label">% Course Barrier</div><div class="modal-metric-value">${p.barrier_pct}</div></div>
-      <div class="modal-metric"><div class="modal-metric-label">WF Literacy Rating</div><div class="modal-metric-value">${p.workforce_rating}/5</div></div>
+      <div class="modal-metric"><div class="modal-metric-label${lexileAttrs.cls}"${lexileAttrs.tip}>Lexile Range</div><div class="modal-metric-value">${p.lexile}</div></div>
+      <div class="modal-metric"><div class="modal-metric-label${gradeBandAttrs.cls}"${gradeBandAttrs.tip}>Grade Band</div><div class="modal-metric-value">${p.grade_band}</div></div>
+      <div class="modal-metric"><div class="modal-metric-label${cognitiveAttrs.cls}"${cognitiveAttrs.tip}>Cognitive Load</div><div class="modal-metric-value">${p.cognitive_load}</div></div>
+      <div class="modal-metric"><div class="modal-metric-label${fastElaAttrs.cls}"${fastElaAttrs.tip}>FAST ELA</div><div class="modal-metric-value">${p.fast_ela}</div></div>
+      <div class="modal-metric"><div class="modal-metric-label${satAttrs.cls}"${satAttrs.tip}>SAT Reading</div><div class="modal-metric-value">${p.sat}</div></div>
+      <div class="modal-metric"><div class="modal-metric-label${actAttrs.cls}"${actAttrs.tip}>ACT Reading</div><div class="modal-metric-value">${p.act}</div></div>
+      <div class="modal-metric"><div class="modal-metric-label${barrierAttrs.cls}"${barrierAttrs.tip}>% Course Barrier</div><div class="modal-metric-value">${p.barrier_pct}</div></div>
+      <div class="modal-metric"><div class="modal-metric-label${workforceAttrs.cls}"${workforceAttrs.tip}>WF Literacy Rating</div><div class="modal-metric-value">${p.workforce_rating}/5</div></div>
     </div>
     <div class="modal-section"><div class="modal-section-title">Main Reading Challenge</div><p>${p.main_challenge}</p></div>
     <div class="modal-section"><div class="modal-section-title">Text Source</div><p>${p.text_source}</p></div>
@@ -1125,6 +1271,7 @@ function openModal(name) {
     <div class="modal-section"><div class="modal-section-title">Learning Profile</div><p>${p.learning_profile}</p></div>
     <div class="modal-section"><div class="modal-section-title">Instructional Implications</div><p>${p.instructional_implications}</p></div>
     <div class="modal-section"><div class="modal-section-title">Recommended Literacy Strategies</div><div class="modal-strategies-list">${stratPills}</div></div>
+    <div class="modal-section"><div class="modal-section-title">Field Descriptions & Definitions</div>${getModalLabelDescriptionsHTML()}</div>
     <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);display:flex;gap:12px;flex-wrap:wrap;">
       <button class="btn-primary" style="font-size:13px;padding:10px 20px;"
         onclick="goToInstructor('${escapeAttr(p.name)}')">Open Instructor Templates &rarr;</button>
