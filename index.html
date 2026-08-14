@@ -744,8 +744,9 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
             <th onclick="sortMatrix(4)">Cognitive Load <span class="sort-arrow">&#8597;</span></th>
             <th onclick="sortMatrix(5)">FAST ELA <span class="sort-arrow">&#8597;</span></th>
             <th onclick="sortMatrix(6)">ACT Reading <span class="sort-arrow">&#8597;</span></th>
-            <th onclick="sortMatrix(7)">% Barrier <span class="sort-arrow">&#8597;</span></th>
-            <th onclick="sortMatrix(8)">WF Rating <span class="sort-arrow">&#8597;</span></th>
+            <th onclick="sortMatrix(7)">SAT Reading <span class="sort-arrow">&#8597;</span></th>
+            <th onclick="sortMatrix(8)">% Barrier <span class="sort-arrow">&#8597;</span></th>
+            <th onclick="sortMatrix(9)">WF Rating <span class="sort-arrow">&#8597;</span></th>
             <th onclick="sortMatrix(10)">FLDOE Min <span class="sort-arrow">&#8597;</span></th>
             <th onclick="sortMatrix(11)">Gap <span class="sort-arrow">&#8597;</span></th>
           </tr>
@@ -1109,8 +1110,8 @@ function openModal(name) {
       <div class="modal-metric"><div class="modal-metric-label">Grade Band</div><div class="modal-metric-value">${p.grade_band}</div></div>
       <div class="modal-metric"><div class="modal-metric-label">Cognitive Load</div><div class="modal-metric-value">${p.cognitive_load}</div></div>
       <div class="modal-metric"><div class="modal-metric-label">FAST ELA</div><div class="modal-metric-value">${p.fast_ela}</div></div>
-      <div class="modal-metric"><div class="modal-metric-label">ACT Reading</div><div class="modal-metric-value">${p.act}</div></div>
       <div class="modal-metric"><div class="modal-metric-label">SAT Reading</div><div class="modal-metric-value">${p.sat}</div></div>
+      <div class="modal-metric"><div class="modal-metric-label">ACT Reading</div><div class="modal-metric-value">${p.act}</div></div>
       <div class="modal-metric"><div class="modal-metric-label">% Course Barrier</div><div class="modal-metric-value">${p.barrier_pct}</div></div>
       <div class="modal-metric"><div class="modal-metric-label">WF Literacy Rating</div><div class="modal-metric-value">${p.workforce_rating}/5</div></div>
     </div>
@@ -1166,10 +1167,11 @@ function applyHeaderTooltips() {
     4: "Cognitive_load_Rating",
     5: "Suggested_FAST_ELA_Score",
     6: "Suggested_ACT_Reading_Score",
-    7: "Percent_of_course_Text_Complexity_Barier",
-    8: "Workforce_Literacy_Relevance",
-    9: "Program_Specific_FLDOE_Reading_Recommendations",
-    10: "Gap_Between_FLDOE_Recommendations_and_Text_Demands"
+    7: "Suggested_SAT_Reading_Score",
+    8: "Percent_of_course_Text_Complexity_Barier",
+    9: "Workforce_Literacy_Relevance",
+    10: "Program_Specific_FLDOE_Reading_Recommendations",
+    11: "Gap_Between_FLDOE_Recommendations_and_Text_Demands"
   };
 
   const ths = document.querySelectorAll('#matrix-table thead th');
@@ -1200,6 +1202,7 @@ function buildMatrix() {
       <td><span class="table-badge load-badge ${cogClass(p.cognitive_load)}">${p.cognitive_load}</span></td>
       <td>${p.fast_ela}</td>
       <td>${p.act}</td>
+      <td>${p.sat}</td>
       <td>${p.barrier_pct}</td>
       <td>${stars(p.workforce_rating)}</td>
       <td>${p.fldoe_min}</td>
@@ -1219,7 +1222,7 @@ function sortMatrix(col) {
   });
   matrixSortDir = (matrixSortCol === col) ? matrixSortDir * -1 : 1;
   matrixSortCol = col;
-  const keys = ['name','sector','lexile','grade_band','cognitive_load','fast_ela','act','barrier_pct','workforce_rating','fldoe_min','gap'];
+  const keys = ['name','sector','lexile','grade_band','cognitive_load','fast_ela','act','sat_reading','barrier_pct','workforce_rating','fldoe_min','gap'];
   matrixData.sort((a, b) => {
     const av = a[keys[col]], bv = b[keys[col]];
     if (typeof av === 'number') return (av - bv) * matrixSortDir;
