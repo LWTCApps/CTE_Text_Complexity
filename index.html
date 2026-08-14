@@ -21,6 +21,9 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Source Serif 4',Georgia,serif;background:var(--light);color:var(--text);line-height:1.6;font-size:16px}
+/* Skip to content link */
+.skip-link{position:absolute;top:-40px;left:0;background:var(--cyan);color:var(--white);padding:8px 16px;text-decoration:none;z-index:9999;font-weight:700;border-radius:0 0 8px 0}
+.skip-link:focus{top:0;outline:2px solid var(--dark);outline-offset:2px}
 
 /* 1. The Main Header Container */
 .site-header {
@@ -283,9 +286,10 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
 .instructor-hero p{font-size:17px;color:rgba(255,255,255,.75);font-weight:300;max-width:640px;line-height:1.65}
 .template-builder{padding:40px;background:var(--light);min-height:60vh}
 .template-controls{background:var(--white);border-radius:var(--radius-lg);padding:28px 32px;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:32px;display:grid;grid-template-columns:1fr 1fr auto;gap:20px;align-items:end}
-.control-group label{font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px}
+.control-group{display:flex;flex-direction:column;gap:6px}
+.control-group label{font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block}
 .control-group select,.control-group input{font-family:'Source Serif 4',serif;font-size:15px;padding:10px 14px;border:2px solid var(--border);border-radius:var(--radius);background:var(--white);color:var(--text);width:100%;outline:none;cursor:pointer;transition:border-color .2s}
-.control-group select:focus,.control-group input:focus{border-color:var(--green)}
+.control-group select:focus-visible,.control-group input:focus-visible{border-color:var(--green);outline:2px solid var(--green);outline-offset:1px}
 .template-package{display:none}.template-package.visible{display:block}
 .program-overview-card{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow);margin-bottom:28px;display:grid;grid-template-columns:320px 1fr}
 .overview-image{width:100%;height:100%;min-height:240px;object-fit:cover;object-position:top;display:block}
@@ -313,7 +317,7 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
 .template-field{display:flex;flex-direction:column;gap:6px}.template-field.full{grid-column:1/-1}
 .template-field label{font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .template-field input,.template-field textarea,.template-field select{font-family:'Source Serif 4',serif;font-size:14px;padding:10px 14px;border:2px solid var(--border);border-radius:var(--radius);background:var(--white);color:var(--text);outline:none;transition:border-color .2s;resize:vertical}
-.template-field input:focus,.template-field textarea:focus{border-color:var(--green)}
+.template-field input:focus-visible,.template-field textarea:focus-visible{border-color:var(--green);outline:2px solid var(--green);outline-offset:1px}
 .template-field textarea{min-height:80px}
 .pre-filled{background:#F0FFF4!important;border-color:rgba(166,217,106,.4)!important;color:#a6d96a!important;font-style:italic}
 .field-note{font-size:12px;color:var(--muted);font-style:italic}
@@ -615,18 +619,19 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
 <link rel="icon" type="image/png" href="Logos/LWTC-Logo-small.png">
 <link rel="apple-touch-icon" href="Logos/LWTC-Logo-small.png">
 <body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 <header class="site-header">
   <div class="header-top">
     <div class="header-logos">
       <a href="https://www.collierschools.com" target="_blank" rel="noopener">
-    <img class="logo-ccps" src="Logos/CCPS-logo-horizontal-WorkforceEducation.png" alt="CCPS Workforce Education">
+    <img class="logo-ccps" src="Logos/CCPS-logo-horizontal-WorkforceEducation.png" alt="Collier County Public Schools Workforce Education Logo">
   </a>
       <div class="logo-divider"></div>
       <a href="https://www.lwtc.edu" target="_blank" rel="noopener">
-    <img class="logo-lwtc" src="Logos/LWTC logo_black.png" alt="Lorenzo Walker Technical College">
+    <img class="logo-lwtc" src="Logos/LWTC logo_black.png" alt="Lorenzo Walker Technical College Logo">
   </a>
       <a href="https://www.iTech.edu" target="_blank" rel="noopener">
-    <img class="logo-secondary" src="Logos/iTECH & Glades College Logo(black text)Transparent.png" alt="Immokalee Technical College">
+    <img class="logo-secondary" src="Logos/iTECH & Glades College Logo(black text)Transparent.png" alt="Immokalee Technical College Logo">
   </a>
     </div>
     <a href="https://lwtcapps.github.io/tech_compass/" target="_blank" class="btn-primary" style="font-size:13px;padding:10px 20px;">&#9670; Take Program Interest Survey</a>
@@ -639,6 +644,7 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
     <button class="nav-link" onclick="showPage('instructor')">Instructor Tools</button>
   </nav>
 </header>
+<main id="main-content">
 <div id="page-home" class="page active">
 
   <section class="hero">
@@ -746,7 +752,7 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
   <section class="hero" style="padding:40px 40px 36px;">
     <div class="hero-inner">
       <div class="hero-eyebrow">All CTE Programs</div>
-      <h1 style="font-size:clamp(28px,4vw,44px);">Program <span>Explorer</span></h1>
+      <h2 style="font-size:clamp(28px,4vw,44px);">Program <span>Explorer</span></h2>
       <p class="hero-desc" style="font-size:16px;margin-bottom:0;">Browse all 33 programs with text complexity data, reading challenges, text sample images, and recommended literacy strategies. Click any card to open full details.</p>
     </div>
   </section>
@@ -762,7 +768,7 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
   <section class="hero" style="padding:40px 40px 36px;">
     <div class="hero-inner">
       <div class="hero-eyebrow">Data Visualization</div>
-      <h1 style="font-size:clamp(28px,4vw,44px);">Text Complexity <span>Dashboard</span></h1>
+      <h2 style="font-size:clamp(28px,4vw,44px);">Text Complexity <span>Dashboard</span></h2>
       <p class="hero-desc" style="font-size:16px;margin-bottom:0;">Visual analysis of reading demands, cognitive load, workforce relevance, and literacy gaps across all 33 CTE programs.</p>
     </div>
   </section>
@@ -805,7 +811,7 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
   <section class="hero" style="padding:40px 40px 36px;">
     <div class="hero-inner">
       <div class="hero-eyebrow">Full Data Table</div>
-      <h1 style="font-size:clamp(28px,4vw,44px);">Text Complexity <span>Matrix</span></h1>
+      <h2 style="font-size:clamp(28px,4vw,44px);">Text Complexity <span>Matrix</span></h2>
       <p class="hero-desc" style="font-size:16px;margin-bottom:0;">Sortable, searchable table of all 33 programs. Click any column header to sort. Click any row to open full program details.</p>
     </div>
   </section>
@@ -849,13 +855,13 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
   <div class="template-builder">
     <div class="template-controls">
       <div class="control-group">
-        <label>Select Your Program</label>
+        <label for="instructor-program-select">Select Your Program</label>
         <select id="instructor-program-select" onchange="buildTemplates()">
           <option value="">— Choose a program —</option>
         </select>
       </div>
       <div class="control-group">
-        <label>Instructor Name (fills all templates)</label>
+        <label for="instructor-name-input">Instructor Name (fills all templates)</label>
         <input type="text" id="instructor-name-input" placeholder="Your name" oninput="syncInstructorName(this.value)">
       </div>
       <!--Temporary website redirect (7-2-2026)-->
@@ -885,6 +891,7 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
     </div>
   </div>
 </div> 
+</main>
 
 <div class="modal-overlay" id="modal-overlay" onclick="handleModalClick(event)">
   <div class="modal" id="modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -907,7 +914,7 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
     <div class="footer-col">
       <div class="footer-logos">
         <a href="https://www.collierschools.com" target="_blank" rel="noopener">
-        <img class="footer-logo-ccps" src="Logos/CCPS-logo-horizontal-WorkforceEducation.png" alt="CCPS Logo">
+        <img class="footer-logo-ccps" src="Logos/CCPS-logo-horizontal-WorkforceEducation.png" alt="Collier County Public Schools Workforce Education Logo">
         </a>
       </div>
       <p>Collier County Public Schools<br>Workforce Education Division<br>Naples, Florida</p>
@@ -918,10 +925,10 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
       <h4>Technical Colleges</h4>
       <div class="footer-logos">
         <a href="https://www.collierschools.com" target="_blank" rel="noopener">
-        <img class="footer-logo-lwtc" src="Logos/LWTC logo_white.png" alt="LWTC Logo">
+        <img class="footer-logo-lwtc" src="Logos/LWTC logo_white.png" alt="Lorenzo Walker Technical College Logo">
         </a>
         <a href="https://www.iTech.edu" target="_blank" rel="noopener">
-        <img class="footer-logo-secondary" src="Logos/iTECH & Glades College Logo(white text)Transparent.png" alt="iTECH Logo">
+        <img class="footer-logo-secondary" src="Logos/iTECH & Glades College Logo(white text)Transparent.png" alt="Immokalee Technical College Logo">
         </a>
       </div>  
       <a href="https://www.lwtc.edu" target="_blank">Lorenzo Walker Technical College</a>
@@ -1091,8 +1098,10 @@ function checkOtherExtensions(imgEl, baseName, index) {
 }
 
 function openLightbox() {
-  const currentSrc = document.getElementById('main-sample-img').src;
-  document.getElementById('lightbox-img').src = currentSrc;
+  const currentImg = document.getElementById('main-sample-img');
+  const lightboxImg = document.getElementById('lightbox-img');
+  lightboxImg.src = currentImg.src;
+  lightboxImg.alt = currentImg.alt || "Full screen instructional text sample excerpt";
   document.getElementById('lightbox-overlay').classList.add('open');
 }
 
@@ -1106,8 +1115,8 @@ function closeLightbox() {
 function makeCard(p) {
   const imgSrc = getImg(p);
   const imgHtml = imgSrc
-  ? `<img class="card-thumb" src="${imgSrc}" alt="${escapeAttr(p.name)} text sample" loading="lazy">`
-  : `<div class="card-thumb" ...>No text sample</div>`;
+? `<img class="card-thumb" src="${imgSrc}" alt="Sample textbook excerpt and text complexity sample for ${escapeAttr(p.name)}" loading="lazy">`
+: `<div class="card-thumb" aria-label="No textbook text sample available">No text sample</div>`;
   const pills = p.strategies.slice(0, 3).map(s => `<span class="strategy-pill">${s}</span>`).join('');
   return `
 <div class="program-card" tabindex="0" role="button" aria-label="View ${escapeAttr(p.name)} program details" onkeydown="handleCardKeydown(event, '${escapeAttr(p.name)}')" onclick="openModal('${escapeAttr(p.name)}')">
@@ -1240,15 +1249,15 @@ function openModal(name) {
   
   // 2. Build the thumbnail list gallery HTML
   const galleryHtml = `
-      <div class="modal-gallery">
-        ${samplePaths.map((src, i) => `
-          <img class="gallery-thumb ${i === 0 ? 'active' : ''}" src="${src}"
-              onclick="switchSample(this, '${src}')"
-              onerror="this.style.display='none'">`
-        ).join('')}
-
-      </div>
-    `;
+    <div class="modal-gallery">
+      ${samplePaths.map((src, i) => `
+        <img class="gallery-thumb ${i === 0 ? 'active' : ''}" src="${src}"
+            alt="${escapeAttr(p.name)} instructional text sample excerpt ${i + 1}"
+            onclick="switchSample(this, '${src}')"
+            onerror="this.style.display='none'">`
+      ).join('')}
+    </div>
+  `;
 
   const stratPills = p.strategies.map(s => `<span class="modal-strategy-pill">${s}</span>`).join('');
   
@@ -1265,7 +1274,7 @@ function openModal(name) {
   // 3. Inject content - note the clickable preview image wrapper and gallery layout placement
   document.getElementById('modal-body').innerHTML = `
     <div class="modal-image-container" style="margin-bottom:28px;">
-        <img id="main-sample-img" src="${firstSrc}" onclick="event.stopPropagation(); openLightbox()">
+        <img id="main-sample-img" src="${firstSrc}" alt="Expanded instructional text excerpt for ${escapeAttr(p.name)}" onclick="event.stopPropagation(); openLightbox()">
         ${galleryHtml}
     </div>
     <div class="modal-grid">
@@ -1579,8 +1588,8 @@ function buildTemplates() {
   // — Overview card —
   const img = getImg(p);
   const imgSection = img
-    ? `<img class="overview-image" src="${img}" alt="${escapeAttr(p.name)} text sample">`
-    : `<div class="overview-image" style="background:var(--light);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;font-family:'Montserrat',sans-serif;">No image available</div>`;
+  ? `<img class="overview-image" src="${img}" alt="Representative textbook reading material page for ${escapeAttr(p.name)}">`
+  : `<div class="overview-image" role="img" aria-label="No textbook image available for ${escapeAttr(p.name)}">No image available</div>`;
 
   document.getElementById('program-overview-section').innerHTML = `
 <div class="program-overview-card">
