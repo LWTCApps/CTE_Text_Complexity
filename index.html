@@ -72,6 +72,7 @@ body{font-family:'Source Serif 4',Georgia,serif;background:var(--light);color:va
 .site-nav{background:var(--dark);display:flex;align-items:center;padding:0 40px;overflow-x:auto}
 .nav-link{font-family:'Montserrat',sans-serif;font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.7);padding:14px 20px;text-decoration:none;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none}
 .nav-link:hover,.nav-link.active{color:var(--cyan);border-bottom-color:var(--cyan);background:rgba(0,174,239,.06)}
+.nav-link:focus-visible{outline:2px solid var(--cyan);outline-offset:-2px}
 .page{display:none}.page.active{display:block}
 .hero{background:linear-gradient(135deg,var(--dark) 0%,#2A3A4A 100%);color:var(--white);padding:64px 40px 56px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;top:-60px;right:-60px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(0,174,239,.15) 0%,transparent 70%);pointer-events:none}
@@ -87,6 +88,7 @@ body{font-family:'Source Serif 4',Georgia,serif;background:var(--light);color:va
 .audience-tabs{display:flex;gap:0;overflow-x:auto}
 .audience-tab{font-family:'Montserrat',sans-serif;font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:16px 24px;border:none;background:none;cursor:pointer;color:var(--muted);border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap}
 .audience-tab.active,.audience-tab:hover{color:var(--cyan);border-bottom-color:var(--cyan)}
+.audience-tab:focus-visible{outline:2px solid var(--cyan);outline-offset:-2px}
 .audience-panels{padding:0 40px}.audience-panel{display:none;padding:28px 0}.audience-panel.active{display:block}
 .audience-panel-inner{background:linear-gradient(135deg,var(--cyan-dim),var(--green-dim));border:1px solid rgba(0,174,239,.2);border-radius:var(--radius-lg);padding:28px 32px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .audience-intro{grid-column:1/-1}.audience-intro h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px;color:var(--dark);margin-bottom:8px}
@@ -101,12 +103,14 @@ body{font-family:'Source Serif 4',Georgia,serif;background:var(--light);color:va
 .filter-label{font-family:'Montserrat',sans-serif;font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:4px}
 .filter-btn{font-family:'Montserrat',sans-serif;font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:7px 16px;border:2px solid var(--border);border-radius:20px;background:var(--white);color:var(--gray);cursor:pointer;transition:all .2s}
 .filter-btn:hover,.filter-btn.active{border-color:var(--cyan);background:var(--cyan);color:var(--white)}
+.filter-btn:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
 .search-box{margin-left:auto;position:relative}
 .search-box input{font-family:'Source Serif 4',serif;font-size:14px;padding:8px 36px 8px 14px;border:2px solid var(--border);border-radius:8px;background:var(--white);color:var(--text);outline:none;width:220px;transition:border-color .2s}
 .search-box input:focus{border-color:var(--cyan)}.search-box svg{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
 .program-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
 .program-card{background:var(--card-bg);border-radius:var(--radius-lg);border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s;cursor:pointer;display:flex;flex-direction:column}
 .program-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--cyan)}
+.program-card:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
 .card-header{padding:18px 20px 14px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
 .card-program-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:18px;color:var(--dark);line-height:1.2;flex:1}
 .load-badge{font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0}
@@ -269,8 +273,10 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
 .compass-stat-label{font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:4px}
 .btn-primary{font-family:'Montserrat',sans-serif;font-weight:700;font-size:16px;letter-spacing:.06em;text-transform:uppercase;background:var(--cyan);color:var(--white);border:none;border-radius:var(--radius);padding:16px 32px;cursor:pointer;text-decoration:none;display:inline-block;transition:all .2s;white-space:nowrap}
 .btn-primary:hover{background:#0099D6;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,174,239,.3)}
+.btn-primary:focus-visible{outline:2px solid #0099D6;outline-offset:2px}
 .btn-secondary{font-family:'Montserrat',sans-serif;font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;background:transparent;color:var(--cyan);border:2px solid var(--cyan);border-radius:var(--radius);padding:12px 24px;cursor:pointer;text-decoration:none;display:inline-block;transition:all .2s}
 .btn-secondary:hover{background:var(--cyan);color:var(--white)}
+.btn-secondary:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
 .instructor-hero{background:linear-gradient(135deg,#1A3A2A 0%,#0D2E1A 100%);color:var(--white);padding:48px 40px 40px;border-bottom:3px solid var(--green)}
 .instructor-hero-eyebrow{font-family:'Montserrat',sans-serif;font-weight:600;font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--green);margin-bottom:12px}
 .instructor-hero h2{font-family:'Montserrat',sans-serif;font-weight:800;font-size:clamp(28px,4vw,44px);line-height:1.1;margin-bottom:14px}
@@ -881,13 +887,13 @@ tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;font-si
 </div> 
 
 <div class="modal-overlay" id="modal-overlay" onclick="handleModalClick(event)">
-  <div class="modal" id="modal">
+  <div class="modal" id="modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-header">
       <div>
         <div class="modal-title" id="modal-title"></div>
         <div class="modal-sector" id="modal-sector"></div>
       </div>
-      <button class="modal-close" onclick="closeModal()">&#10005;</button>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close program details">&#10005;</button>
     </div>
     <div class="modal-body" id="modal-body"></div>
   </div>
@@ -1016,7 +1022,7 @@ function metricLabelAttrs(displayLabel) {
   const key = CARD_METRIC_LABEL_MAP[displayLabel];
   const desc = key && typeof labelData !== 'undefined' && labelData[key] ? labelData[key].description : null;
   if (!desc) return { cls: '', tip: '' };
-  return { cls: ' has-tooltip', tip: ` data-tooltip="${escapeAttr(desc)}"` };
+  return { cls: ' has-tooltip', tip: ` data-tooltip="${escapeAttr(desc)}" aria-label="${escapeAttr(displayLabel + ': ' + desc)}"` };
 }
 function escapeAttr(s) {
   return (s || '').replace(/'/g, '&#39;').replace(/"/g, '&quot;');
@@ -1027,9 +1033,10 @@ function getModalMetricAttrs(displayLabel) {
   const key = CARD_METRIC_LABEL_MAP[displayLabel];
   const desc = key && typeof labelData !== 'undefined' && labelData[key] ? labelData[key].description : null;
   if (!desc) return { cls: '', tip: '' };
-  return { cls: ' has-tooltip', tip: ` data-tooltip="${escapeAttr(desc)}"` };
+  return { cls: ' has-tooltip', tip: ` data-tooltip="${escapeAttr(desc)}" aria-label="${escapeAttr(displayLabel + ': ' + desc)}"` };
 }
 
+// Helper function to generate label descriptions HTML for the modal
 // Helper function to generate label descriptions HTML for the modal
 function getModalLabelDescriptionsHTML() {
   const labelDescriptions = [
@@ -1050,7 +1057,7 @@ function getModalLabelDescriptionsHTML() {
     if (desc) {
       html += `
         <div class="modal-description-item">
-          <div class="modal-description-label has-tooltip" data-tooltip="${escapeAttr(desc)}">${label}</div>
+          <div class="modal-description-label has-tooltip" data-tooltip="${escapeAttr(desc)}" aria-label="${escapeAttr(label + ': ' + desc)}">${label}</div>
           <div class="modal-description-text">${desc}</div>
         </div>`;
     }
@@ -1103,7 +1110,7 @@ function makeCard(p) {
   : `<div class="card-thumb" ...>No text sample</div>`;
   const pills = p.strategies.slice(0, 3).map(s => `<span class="strategy-pill">${s}</span>`).join('');
   return `
-<div class="program-card" onclick="openModal('${escapeAttr(p.name)}')">
+<div class="program-card" tabindex="0" role="button" aria-label="View ${escapeAttr(p.name)} program details" onkeydown="handleCardKeydown(event, '${escapeAttr(p.name)}')" onclick="openModal('${escapeAttr(p.name)}')">
   <div class="card-header">
     <div>
       <div class="card-program-name">${p.name}</div>
@@ -1200,6 +1207,16 @@ function applyProgramFilters() {
 renderGrid('programs-grid', PROGRAMS);
 
 // ══════════════════════════════════════════════════════
+// KEYBOARD ACCESSIBILITY
+// ══════════════════════════════════════════════════════
+function handleCardKeydown(event, programName) {
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault();
+    openModal(programName);
+  }
+}
+
+// ══════════════════════════════════════════════════════
 // MODAL
 // ══════════════════════════════════════════════════════
 function openModal(name) {
@@ -1279,6 +1296,11 @@ function openModal(name) {
     </div>`;
   document.getElementById('modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
+  // Move focus to modal for accessibility
+  setTimeout(() => {
+    const modal = document.getElementById('modal');
+    if (modal) modal.focus();
+  }, 50);
 }
 
 function goToInstructor(name) {
