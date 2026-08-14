@@ -37,6 +37,10 @@ const labelData = {
     "name": "Suggested ACT Reading Score",
     "description": "Provides a suggested score based on the ACT Reading assessment, which can be used to evaluate the literacy demands of the text and guide instructional strategies."
   }, 
+  "Suggested_SAT_Reading_Score": {
+    "name": "Suggested SAT Reading Score",
+    "description": "Provides a suggested score based on the SAT Reading assessment, which can be used to assess the literacy demands of the text and inform instructional planning."
+  },
   "Cognitive_load_Rating": {
     "name": "Cognitive Load Rating(Low, Medium, High)",
     "description": "Assesses the cognitive load of the text, which can inform instructional strategies and help educators understand the mental effort required for students to comprehend the material."
